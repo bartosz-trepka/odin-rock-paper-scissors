@@ -85,24 +85,32 @@ function game() {
     //     console.log(`Round: ${i + 1}:`);
     //     console.log(playRound(playerSelection, computerSelection));
     // }
-    alert(`Press F12 to check results!`)
     console.log(
         `*Welcome to Rock-Paper-Scissors game!*`
     );
 
-    do {
-        playerSelection = prompt(`Round 1:`).toLowerCase();
-    } while (
-        playerSelection !== "rock" && 
-        playerSelection !== "paper" && 
-        playerSelection !== "scissors"
-    );
-
     computerSelection = computerPlay().toLowerCase();
-
     console.log(`Round: 1:`);
-    console.log(playRound(playerSelection, computerSelection));
-    console.log(decideWinner());
+
+    const rockButton = document.getElementById('rock');
+    const paperButton = document.getElementById('paper');
+    const scissorsButton = document.getElementById('scissors');
+
+    rockButton.addEventListener('click', () => {
+        playerSelection = 'rock';
+        console.log(playRound(playerSelection, computerSelection));
+        console.log(decideWinner());
+    });
+    paperButton.addEventListener('click', () => {
+        playerSelection = 'paper';
+        console.log(playRound(playerSelection, computerSelection));
+        console.log(decideWinner());
+    });
+    scissorsButton.addEventListener('click', () => {
+        playerSelection = 'scissors';
+        console.log(playRound(playerSelection, computerSelection));
+        console.log(decideWinner());
+    });
 }
 
 let playerSelection = "";
