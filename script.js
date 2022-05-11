@@ -64,27 +64,44 @@ function decideWinner() {
 }
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        if (i === 0) {
-            alert(`Press F12 to check results!`)
-            console.log(
-                `*Welcome to Rock-Paper-Scissors game!*`
-            );
-        }
+    // for (let i = 0; i < 5; i++) {
+    //     if (i === 0) {
+    //         alert(`Press F12 to check results!`)
+    //         console.log(
+    //             `*Welcome to Rock-Paper-Scissors game!*`
+    //         );
+    //     }
 
-        do {
-            playerSelection = prompt(`Round ${i + 1}/5:`).toLowerCase();
-        } while (
-            playerSelection !== "rock" && 
-            playerSelection !== "paper" && 
-            playerSelection !== "scissors"
-        );
+    //     do {
+    //         playerSelection = prompt(`Round ${i + 1}/5:`).toLowerCase();
+    //     } while (
+    //         playerSelection !== "rock" && 
+    //         playerSelection !== "paper" && 
+    //         playerSelection !== "scissors"
+    //     );
 
-        computerSelection = computerPlay().toLowerCase();
+    //     computerSelection = computerPlay().toLowerCase();
         
-        console.log(`Round: ${i + 1}:`);
-        console.log(playRound(playerSelection, computerSelection));
-    }
+    //     console.log(`Round: ${i + 1}:`);
+    //     console.log(playRound(playerSelection, computerSelection));
+    // }
+    alert(`Press F12 to check results!`)
+    console.log(
+        `*Welcome to Rock-Paper-Scissors game!*`
+    );
+
+    do {
+        playerSelection = prompt(`Round 1:`).toLowerCase();
+    } while (
+        playerSelection !== "rock" && 
+        playerSelection !== "paper" && 
+        playerSelection !== "scissors"
+    );
+
+    computerSelection = computerPlay().toLowerCase();
+
+    console.log(`Round: 1:`);
+    console.log(playRound(playerSelection, computerSelection));
     console.log(decideWinner());
 }
 
