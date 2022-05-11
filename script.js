@@ -2,10 +2,13 @@ function computerPlay() {
     let computerChoice = Math.floor(Math.random() * 3);
 
     if (computerChoice === 0) {
+        computerSelection = "rock";
         return "rock";
     } else if (computerChoice === 1) {
+        computerSelection = "paper";
         return "paper";
     } else {
+        computerSelection = "scissors";
         return "scissors";
     }
 }
@@ -64,33 +67,15 @@ function decideWinner() {
 }
 
 function game() {
-    // for (let i = 0; i < 5; i++) {
-    //     if (i === 0) {
-    //         alert(`Press F12 to check results!`)
-    //         console.log(
-    //             `*Welcome to Rock-Paper-Scissors game!*`
-    //         );
-    //     }
+    const results = document.getElementById('results');
 
-    //     do {
-    //         playerSelection = prompt(`Round ${i + 1}/5:`).toLowerCase();
-    //     } while (
-    //         playerSelection !== "rock" && 
-    //         playerSelection !== "paper" && 
-    //         playerSelection !== "scissors"
-    //     );
+    const welcome = document.createElement('p');
+    welcome.textContent = "*Welcome to Rock-Paper-Scissors game!*";
+    results.appendChild(welcome);
 
-    //     computerSelection = computerPlay().toLowerCase();
-        
-    //     console.log(`Round: ${i + 1}:`);
-    //     console.log(playRound(playerSelection, computerSelection));
-    // }
-    console.log(
-        `*Welcome to Rock-Paper-Scissors game!*`
-    );
-
-    computerSelection = computerPlay().toLowerCase();
-    console.log(`Round: 1:`);
+    const line2 = document.createElement('p');
+    line2.textContent = "Choose:";
+    results.appendChild(line2);
 
     const rockButton = document.getElementById('rock');
     const paperButton = document.getElementById('paper');
@@ -98,18 +83,36 @@ function game() {
 
     rockButton.addEventListener('click', () => {
         playerSelection = 'rock';
-        console.log(playRound(playerSelection, computerSelection));
-        console.log(decideWinner());
+
+        const line3 = document.createElement('p');
+        line3.textContent = playRound(playerSelection, computerPlay());
+        results.appendChild(line3);
+
+        const line4 = document.createElement('p');
+        line4.textContent = decideWinner();
+        results.appendChild(line4);
     });
     paperButton.addEventListener('click', () => {
         playerSelection = 'paper';
-        console.log(playRound(playerSelection, computerSelection));
-        console.log(decideWinner());
+
+        const line3 = document.createElement('p');
+        line3.textContent = playRound(playerSelection, computerPlay());
+        results.appendChild(line3);
+
+        const line4 = document.createElement('p');
+        line4.textContent = decideWinner();
+        results.appendChild(line4);
     });
     scissorsButton.addEventListener('click', () => {
         playerSelection = 'scissors';
-        console.log(playRound(playerSelection, computerSelection));
-        console.log(decideWinner());
+
+        const line3 = document.createElement('p');
+        line3.textContent = playRound(playerSelection, computerPlay());
+        results.appendChild(line3);
+
+        const line4 = document.createElement('p');
+        line4.textContent = decideWinner();
+        results.appendChild(line4);
     });
 }
 
