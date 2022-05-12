@@ -67,16 +67,6 @@ function decideWinner() {
 }
 
 function game() {
-    const results = document.getElementById('results');
-
-    const welcome = document.createElement('p');
-    welcome.textContent = "*Welcome to Rock-Paper-Scissors game!*";
-    results.appendChild(welcome);
-
-    const line2 = document.createElement('p');
-    line2.textContent = "Choose:";
-    results.appendChild(line2);
-
     const rockButton = document.getElementById('rock');
     const paperButton = document.getElementById('paper');
     const scissorsButton = document.getElementById('scissors');

@@ -6,9 +6,28 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+        <div id="container">
+            <div id="left-side">
+                <div id="computer-bar">Computer choice</div>
+                <div id="computer-buttons">
+                    <button id="computer-rock">Rock</button>
+                    <button id="computer-paper">Paper</button>
+                    <button id="computer-scissors">Scissors</button>
+                </div>
+                <div id="small-screen">...</div>
+                <div id="player-buttons">
+                    <button id="player-rock">Rock</button>
+                    <button id="player-paper">Paper</button>
+                    <button id="player-scissors">Scissors</button>
+                </div>
+                <div id="player-bar">Player choice</div>
+            </div>
+            <div id="right-side">
+                <div id="welcome">Welcome to Rock-Paper-Scissors game!</div>
+                <div id="score">Score: 0-0</div>
+                <div id="table">Table</div>
+            </div>
+        </div>
 
         <div id="results"></div>
         <script src="script.js"></script>
