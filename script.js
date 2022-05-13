@@ -1,129 +1,126 @@
+function prepareBoard() {
+    updateScore();
+    setSmallScreen('Start');
+}
+
+function updateScore() {
+    score.innerText = `Score: ${playerScore}:${computerScore}`;
+
+    if (playerScore === 5 || computerScore === 5) {
+        playerRock.removeEventListener('click', rock);
+        playerPaper.removeEventListener('click', paper);
+        playerScissors.removeEventListener('click', scissors);
+    }
+}
+
+function setSmallScreen(mode) {
+    switch (mode) {
+        case 'Start':
+            smallScreen.innerText = '...';
+            break;
+        case 'Draw':
+            smallScreen.innerText += ' draw';
+            break;
+        case 'Win':
+            smallScreen.innerText += ' win';
+            break;
+        case 'Lose':
+            smallScreen.innerText += ' lose';
+            break;
+        default:
+            smallScreen.innerText = '...';
+    }
+}
+
+function createRow() {
+    const tr = document.createElement('tr');
+    const tdRound = document.createElement('td');
+    const tdPlayer = document.createElement('td');
+    const tdComputer = document.createElement('td');
+
+    tdRound.innerText = roundCounter;
+    tdPlayer.innerText = playerSelection;
+    tdComputer.innerText = computerSelection;
+
+    tr.appendChild(tdRound);
+    tr.appendChild(tdPlayer);
+    tr.appendChild(tdComputer);
+    tableLog.appendChild(tr);
+}
+
+function game() {
+    playerRock.addEventListener('click', rock);
+    playerPaper.addEventListener('click', paper);
+    playerScissors.addEventListener('click', scissors);
+}
+
+function playRound(choice) {
+    playerSelection = choice;
+    computerSelection = computerPlay();
+
+    smallScreen.innerText = `${playerSelection} : ${computerSelection}`;
+
+    decideResult();
+
+    roundCounter += 1;
+}
+
 function computerPlay() {
     let computerChoice = Math.floor(Math.random() * 3);
 
     if (computerChoice === 0) {
-        computerSelection = "rock";
-        return "rock";
+        return "Rock";
     } else if (computerChoice === 1) {
-        computerSelection = "paper";
-        return "paper";
+        return "Paper";
     } else {
-        computerSelection = "scissors";
-        return "scissors";
+        return "Scissors";
     }
 }
 
-function playRound(player, computer) {
-    if (player === computer) {
-        return message("draw");
+function decideResult() {
+    if (playerSelection === computerSelection) {
+        createRow();
+        return setSmallScreen('Draw');
     }
-    if (player === "rock") {
-        if (computer === "scissors") {
+    if (playerSelection === "Rock") {
+        if (computerSelection === "Scissors") {
             playerScore++;
-            return message("win");
+            updateScore();
+            createRow();
+            return setSmallScreen('Win');
         } else {
             computerScore++;
-            return message("lose");
+            updateScore();
+            createRow();
+            return setSmallScreen('Lose');
         }
     }
-    if (player === "paper") {
-        if (computer === "rock") {
-            playerScore++;
-            return message("win");
+    if (playerSelection === "Paper") {
+        if (computerSelection === "Rock") {
+            playerScore += 1;
+            updateScore();
+            createRow();
+            return setSmallScreen('Win');
         } else {
-            computerScore++;
-            return message("lose");
+            computerScore += 1;
+            updateScore();
+            createRow();
+            return setSmallScreen('Lose');
         }
     }
-    if (player === "scissors") {
-        if (computer === "paper") {
-            playerScore++;
-            return message("win");
+    if (playerSelection === "Scissors") {
+        if (computerSelection === "Paper") {
+            playerScore += 1;
+            updateScore();
+            createRow();
+            return setSmallScreen('Win');
         } else {
-            computerScore++;
-            return message("lose");
+            computerScore += 1;
+            updateScore();
+            createRow();
+            return setSmallScreen('Lose');
         }
     }
-}
-
-function message(result) {
-    if (result === "win") {
-        return `You win! (P: ${playerSelection} vs C: ${computerSelection})`;
-    } else if (result === "lose") {
-        return `You lose! (P: ${playerSelection} vs C: ${computerSelection})`;
-    } else {
-        return `It's a draw! (P: ${playerSelection} vs C: ${computerSelection})`;
-    }
-}
-
-function decideWinner() {
-    if (playerScore > computerScore) {
-        return `*You win! ${playerScore}:${computerScore}*`;
-    } else if (computerScore > playerScore) {
-        return `*You lose! ${playerScore}:${computerScore}*`;
-    } else {
-        return `*It's a draw! ${playerScore}:${computerScore}*`;
-    }
-}
-
-function game() {
-    const computerRock = document.getElementById('computer-rock');
-    const computerPaper = document.getElementById('computer-paper');
-    const computerScissors = document.getElementById('computer-scissors');
-    const smallScreen = document.getElementById('small-screen');
-    const playerRock = document.getElementById('player-rock');
-    const playerPaper = document.getElementById('player-paper');
-    const playerScissors = document.getElementById('player-scissors');
-    const score = document.getElementById('score');
-    const tableLog = document.getElementById('table-log');
-
-    playerRock.addEventListener('click', () => {
-        smallScreen.innerText = 'rock';
-    });
-    playerPaper.addEventListener('click', () => {
-        smallScreen.innerText = 'paper';
-    });
-    playerScissors.addEventListener('click', () => {
-        smallScreen.innerText = 'scissors';
-    })
-
-    // const rockButton = document.getElementById('rock');
-    // const paperButton = document.getElementById('paper');
-    // const scissorsButton = document.getElementById('scissors');
-
-    // rockButton.addEventListener('click', () => {
-    //     playerSelection = 'rock';
-
-    //     const line3 = document.createElement('p');
-    //     line3.textContent = playRound(playerSelection, computerPlay());
-    //     results.appendChild(line3);
-
-    //     const line4 = document.createElement('p');
-    //     line4.textContent = decideWinner();
-    //     results.appendChild(line4);
-    // });
-    // paperButton.addEventListener('click', () => {
-    //     playerSelection = 'paper';
-
-    //     const line3 = document.createElement('p');
-    //     line3.textContent = playRound(playerSelection, computerPlay());
-    //     results.appendChild(line3);
-
-    //     const line4 = document.createElement('p');
-    //     line4.textContent = decideWinner();
-    //     results.appendChild(line4);
-    // });
-    // scissorsButton.addEventListener('click', () => {
-    //     playerSelection = 'scissors';
-
-    //     const line3 = document.createElement('p');
-    //     line3.textContent = playRound(playerSelection, computerPlay());
-    //     results.appendChild(line3);
-
-    //     const line4 = document.createElement('p');
-    //     line4.textContent = decideWinner();
-    //     results.appendChild(line4);
-    // });
 }
 
 let playerSelection = "";
@@ -132,4 +129,32 @@ let playerScore = 0;
 let computerSelection = "";
 let computerScore = 0;
 
+let roundCounter = 0;
+
+const smallScreen = document.getElementById('small-screen');
+const score = document.getElementById('score');
+const tableLog = document.getElementById('table-log');
+
+const playerRock = document.getElementById('player-rock');
+const playerPaper = document.getElementById('player-paper');
+const playerScissors = document.getElementById('player-scissors');
+
+const rock = function() {
+    playerSelection = 'Rock';
+    playRound('Rock');
+}
+const paper = function() {
+    playerSelection = 'Paper';
+    playRound('Paper');
+}
+const scissors = function() {
+    playerSelection = 'Scissors';
+    playRound('Scissors');
+}
+
+// const computerRock = document.getElementById('computer-rock');
+// const computerPaper = document.getElementById('computer-paper');
+// const computerScissors = document.getElementById('computer-scissors');
+
+prepareBoard();
 game();
