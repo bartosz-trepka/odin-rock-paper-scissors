@@ -28,7 +28,7 @@ function createLog() {
 function updateDisplay(mode) {
     switch (mode) {
         case 'Start':
-            smallScreen.innerText = 'Choose one of the buttons below!';
+            smallScreen.innerText = 'First to 5 - Choose one of the buttons below!';
             break;
         case 'Rock':
             smallScreen.innerText = 'Rock breaks Scissors';
@@ -41,6 +41,12 @@ function updateDisplay(mode) {
             break;
         case 'Same':
             smallScreen.innerText = 'It is a draw';
+            break;
+        case 'Winner':
+            smallScreen.innerText += '. You are the winner!';
+            break;
+        case 'Loser':
+            smallScreen.innerText += '. Computer is the winner!';
             break;
         default:
             smallScreen.innerText = '...';
@@ -120,6 +126,8 @@ function updateWin() {
     updateButtons('Win');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
+        finishButtons();
+        updateDisplay('Winner');
     } else {
         roundCounter += 1;
         createLog();
@@ -141,6 +149,8 @@ function updateLose() {
     updateButtons('Lose');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
+        finishButtons();
+        updateDisplay('Loser');
     } else {
         roundCounter += 1;
         createLog();
@@ -243,6 +253,31 @@ function updateText(playerCell, computerCell) {
     }
 }
 
+function finishButtons() {
+    for (let i = 0; i < playerButtons.length; i++) {
+        playerButtons[i].classList = '';
+    }
+    for (let i = 0; i < computerButtons.length; i++) {
+        computerButtons[i].classList = '';
+    }
+
+    if (playerScore === 5) {
+        playerButtons[0].classList = 'win-button';
+        playerButtons[1].classList = 'win-button';
+        playerButtons[2].classList = 'win-button';
+        computerButtons[0].classList = 'lose-button';
+        computerButtons[1].classList = 'lose-button';
+        computerButtons[2].classList = 'lose-button';
+    } else {
+        playerButtons[0].classList = 'lose-button';
+        playerButtons[1].classList = 'lose-button';
+        playerButtons[2].classList = 'lose-button';
+        computerButtons[0].classList = 'win-button';
+        computerButtons[1].classList = 'win-button';
+        computerButtons[2].classList = 'win-button';
+    }
+}
+
 let playerSelection = "";
 let playerScore = 0;
 
@@ -254,6 +289,8 @@ let roundCounter = 1;
 const smallScreen = document.getElementById('small-screen');
 const score = document.getElementById('score');
 const tableLog = document.getElementById('table-log');
+
+const tableContainer = document.getElementById('table-container');
 
 const playerButtons = document.getElementById('player-buttons').getElementsByTagName('button');
 const playerRock = document.getElementById('player-rock');
@@ -267,12 +304,15 @@ const computerScissors = document.getElementById('computer-scissors');
 
 const rock = function() {
     playRound('Rock');
+    tableContainer.scrollTop = tableContainer.scrollHeight;
 }
 const paper = function() {
     playRound('Paper');
+    tableContainer.scrollTop = tableContainer.scrollHeight;
 }
 const scissors = function() {
     playRound('Scissors');
+    tableContainer.scrollTop = tableContainer.scrollHeight;
 }
 
 prepareBoard();
