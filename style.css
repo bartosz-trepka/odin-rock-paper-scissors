@@ -98,12 +98,24 @@ table {
     background-color: rgba(0, 128, 0, 0.7);
 }
 
+.win-text {
+    color: rgba(0, 128, 0, 0.7);
+}
+
 .lose-button {
     background-color: rgba(255, 0, 0, 0.7);
 }
 
+.lose-text {
+    color: rgba(255, 0, 0, 0.7);
+}
+
 .draw-button {
     background-color: rgba(255, 166, 0, 0.7);
+}
+
+.draw-text {
+    color: rgba(255, 166, 0, 0.7);
 }
 
 .disable {

@@ -1,7 +1,7 @@
 function prepareBoard() {
     updateScore();
     createLog();
-    setSmallScreen('Start');
+    updateDisplay('Start');
     setButtons();
 }
 
@@ -25,19 +25,22 @@ function createLog() {
     tableLog.appendChild(tr);
 }
 
-function setSmallScreen(mode) {
+function updateDisplay(mode) {
     switch (mode) {
         case 'Start':
             smallScreen.innerText = 'Choose one of the buttons below!';
             break;
-        case 'Draw':
-            smallScreen.innerText += ' [draw]';
+        case 'Rock':
+            smallScreen.innerText = 'Rock breaks Scissors';
             break;
-        case 'Win':
-            smallScreen.innerText += ' [win]';
+        case 'Paper':
+            smallScreen.innerText = 'Paper covers Rock';
             break;
-        case 'Lose':
-            smallScreen.innerText += ' [lose]';
+        case 'Scissors':
+            smallScreen.innerText = 'Scissors cuts Paper';
+            break;
+        case 'Same':
+            smallScreen.innerText = 'It is a draw';
             break;
         default:
             smallScreen.innerText = '...';
@@ -77,26 +80,33 @@ function computerPlay() {
 
 function decideResult() {
     if (playerSelection === computerSelection) {
+        updateDisplay('Same');
         updateDraw();
     } else {
         if (playerSelection === 'Rock') {
             if (computerSelection === 'Scissors') {
+                updateDisplay('Rock');
                 updateWin();
             } else {
+                updateDisplay('Paper');
                 updateLose();
             }
         }
         if (playerSelection === 'Paper') {
             if (computerSelection === 'Rock') {
+                updateDisplay('Paper');
                 updateWin();
             } else {
+                updateDisplay('Scissors');
                 updateLose();
             }
         }
         if (playerSelection === 'Scissors') {
             if (computerSelection === 'Paper') {
+                updateDisplay('Scissors');
                 updateWin();
             } else {
+                updateDisplay('Rock');
                 updateLose();
             }
         }
@@ -107,12 +117,10 @@ function updateWin() {
     playerScore += 1;
     updateScore();
     updateLog();
-    updateDisplay();
     updateButtons('Win');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
     } else {
-        setSmallScreen('Win');
         roundCounter += 1;
         createLog();
     }
@@ -121,9 +129,7 @@ function updateWin() {
 function updateDraw() {
     updateScore();
     updateLog();
-    updateDisplay();
     updateButtons('Draw');
-    setSmallScreen('Draw');
     roundCounter += 1;
     createLog();
 }
@@ -132,12 +138,10 @@ function updateLose() {
     computerScore += 1;
     updateScore();
     updateLog();
-    updateDisplay();
     updateButtons('Lose');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
     } else {
-        setSmallScreen('Lose');
         roundCounter += 1;
         createLog();
     }
@@ -199,10 +203,44 @@ function updateLog() {
 
     tdPlayer.innerText = playerSelection;
     tdComputer.innerText = computerSelection;
+    updateText(tdPlayer, tdComputer);
 }
 
-function updateDisplay() {
-    smallScreen.innerText = `${playerSelection} : ${computerSelection}`;
+function updateText(playerCell, computerCell) {
+    if (playerCell.innerText === 'Rock') {
+        if (computerCell.innerText === 'Paper') {
+            playerCell.classList = 'lose-text';
+            computerCell.classList = 'win-text';
+        } else if (computerCell.innerText === 'Scissors') {
+            playerCell.classList = 'win-text';
+            computerCell.classList = 'lose-text';
+        } else {
+            playerCell.classList = 'draw-text';
+            computerCell.classList = 'draw-text';
+        }
+    } else if (playerCell.innerText === 'Paper') {
+        if (computerCell.innerText === 'Scissors') {
+            playerCell.classList = 'lose-text';
+            computerCell.classList = 'win-text';
+        } else if (computerCell.innerText === 'Rock') {
+            playerCell.classList = 'win-text';
+            computerCell.classList = 'lose-text';
+        } else {
+            playerCell.classList = 'draw-text';
+            computerCell.classList = 'draw-text';
+        }
+    } else {
+        if (computerCell.innerText === 'Rock') {
+            playerCell.classList = 'lose-text';
+            computerCell.classList = 'win-text';
+        } else if (computerCell.innerText === 'Paper') {
+            playerCell.classList = 'win-text';
+            computerCell.classList = 'lose-text';
+        } else {
+            playerCell.classList = 'draw-text';
+            computerCell.classList = 'draw-text';
+        }
+    }
 }
 
 let playerSelection = "";
