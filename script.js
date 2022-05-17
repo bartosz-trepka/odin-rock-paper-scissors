@@ -2,10 +2,11 @@ function prepareBoard() {
     updateScore();
     createLog();
     setSmallScreen('Start');
+    setButtons();
 }
 
 function updateScore() {
-    score.innerText = `Score: ${playerScore}:${computerScore}`;
+    score.innerText = `Score - ${playerScore}:${computerScore}`;
 }
 
 function createLog() {
@@ -27,7 +28,7 @@ function createLog() {
 function setSmallScreen(mode) {
     switch (mode) {
         case 'Start':
-            smallScreen.innerText = 'Choose your weapon!';
+            smallScreen.innerText = 'Choose one of the buttons below!';
             break;
         case 'Draw':
             smallScreen.innerText += ' [draw]';
@@ -40,6 +41,12 @@ function setSmallScreen(mode) {
             break;
         default:
             smallScreen.innerText = '...';
+    }
+}
+
+function setButtons() {
+    for (let i = 0; i < computerButtons.length; i++) {
+        computerButtons[i].classList = "disable";
     }
 }
 
@@ -101,6 +108,7 @@ function updateWin() {
     updateScore();
     updateLog();
     updateDisplay();
+    updateButtons('Win');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
     } else {
@@ -114,6 +122,7 @@ function updateDraw() {
     updateScore();
     updateLog();
     updateDisplay();
+    updateButtons('Draw');
     setSmallScreen('Draw');
     roundCounter += 1;
     createLog();
@@ -124,12 +133,57 @@ function updateLose() {
     updateScore();
     updateLog();
     updateDisplay();
+    updateButtons('Lose');
     if (playerScore === 5 || computerScore === 5) {
         disableButtons();
     } else {
         setSmallScreen('Lose');
         roundCounter += 1;
         createLog();
+    }
+}
+
+function updateButtons(result) {
+    for (let i = 0; i < playerButtons.length; i++) {
+        playerButtons[i].classList = '';
+    }
+    for (let i = 0; i < computerButtons.length; i++) {
+        computerButtons[i].classList = 'disable';
+    }
+
+    if (result === 'Win') {
+        if (playerSelection === 'Rock') {
+            playerButtons[0].classList = 'win-button';
+            computerButtons[2].classList = 'lose-button';
+        } else if (playerSelection === 'Paper') {
+            playerButtons[1].classList = 'win-button';
+            computerButtons[0].classList = 'lose-button';
+        } else {
+            playerButtons[2].classList = 'win-button';
+            computerButtons[1].classList = 'lose-button';
+        }
+    } else if (result === 'Lose') {
+        if (playerSelection === 'Rock') {
+            playerButtons[0].classList = 'lose-button';
+            computerButtons[1].classList = 'win-button';
+        } else if (playerSelection === 'Paper') {
+            playerButtons[1].classList = 'lose-button';
+            computerButtons[2].classList = 'win-button';
+        } else {
+            playerButtons[2].classList = 'lose-button';
+            computerButtons[0].classList = 'win-button';
+        }
+    } else {
+        if (playerSelection === 'Rock') {
+            playerButtons[0].classList = 'draw-button';
+            computerButtons[0].classList = 'draw-button';
+        } else if (playerSelection === 'Paper') {
+            playerButtons[1].classList = 'draw-button';
+            computerButtons[1].classList = 'draw-button';
+        } else {
+            playerButtons[2].classList = 'draw-button';
+            computerButtons[2].classList = 'draw-button';
+        }
     }
 }
 
@@ -163,9 +217,15 @@ const smallScreen = document.getElementById('small-screen');
 const score = document.getElementById('score');
 const tableLog = document.getElementById('table-log');
 
+const playerButtons = document.getElementById('player-buttons').getElementsByTagName('button');
 const playerRock = document.getElementById('player-rock');
 const playerPaper = document.getElementById('player-paper');
 const playerScissors = document.getElementById('player-scissors');
+
+const computerButtons = document.getElementById('computer-buttons').getElementsByTagName('button');
+const computerRock = document.getElementById('computer-rock');
+const computerPaper = document.getElementById('computer-paper');
+const computerScissors = document.getElementById('computer-scissors');
 
 const rock = function() {
     playRound('Rock');
@@ -176,10 +236,6 @@ const paper = function() {
 const scissors = function() {
     playRound('Scissors');
 }
-
-// const computerRock = document.getElementById('computer-rock');
-// const computerPaper = document.getElementById('computer-paper');
-// const computerScissors = document.getElementById('computer-scissors');
 
 prepareBoard();
 game();
