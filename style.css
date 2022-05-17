@@ -12,31 +12,58 @@
 
 #container {
     justify-content: center;
+    align-items: center;
     font-size: 24px;
+    background-color: #121212;
+    height: 100vh;
+    gap: 10px;
 }
 
 #left-side,
 #right-side {
     flex-direction: column;
-    border: 1px solid black;
-    width: 500px;
-}
-
-#left-side div:not(:last-child),
-#right-side div:not(:last-child) {
-    border-bottom: 1px solid black;
+    height: 60vh;
 }
 
 div {
     text-align: center;
 }
 
+#computer-bar,
+#player-bar,
+#welcome,
+#score,
+#small-screen,
+#table-container {
+    background-color: #1f1f1f;
+    color: #e2e2e2;
+    padding: 8px 16px;
+    margin: 2px;
+    border-radius: 4px;
+}
+
+#small-screen {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
     font-size: 18px;
-    background-color: white;
-    color: black;
+    background-color: #1d1d1d;
+    color: #e2e2e2;
+    border: 1px solid #e2e2e2;
     border-radius: 50%;
-    border: 1px solid black;
     height: 100px;
     width: 100px;
+    margin: 4px;
+}
+
+#table-container {
+    overflow: auto;
+}
+
+table {
+    width: 100%;
 }
